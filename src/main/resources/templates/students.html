@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
+    <meta charset="UTF-8">
+    <title>Список студентов</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="http://localhost:8080/home">Home<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <div style="color:#FFFFFF" class="nav-item active">
+            <h5>Добро пожаловать, <span th:text="${username}">Welcome</span></h5>
+        </div>
+    </div>
+</nav>
+<br>
+<br>
+<br>
+
+<div role="main" class="container">
+
+    <div class="starter-template">
+        <H2>Список студентов</H2>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Добавить нового
+        </button>
+
+        <table class="table table-stripped">
+            <thead>
+            <tr>
+                <td>Id</td>
+                <td>Имя</td>
+                <td>Фамилия</td>
+                <td>Кем обновлено</td>
+                <td>Дата</td>
+                <td>Редактировать</td>
+                <td>Удалить</td>
+            </tr>
+            </thead>
+
+            <tr th:each="student:${students}">
+                <td th:text="${student.Id}">Id</td>
+                <td th:text="${student.name}">Name</td>
+                <td th:text="${student.surname}">Фамилия</td>
+                <td th:text="${student.updatedBy}">Updated By</td>
+                <td th:text="${student.updatedOn}">Updated On</td>
+                <td><a th:href="@{/students/getOne/(Id=${student.Id})}" class="btn btn-warning">Редактировать</a></td>
+                <td><a th:href="@{/students/delete/(Id=${student.Id})}" class="btn btn-danger"
+                       id="deleteButton">Удалить</a></td>
+            </tr>
+        </table>
+
+    </div>
+
+</div><!-- /.container -->
+
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <form th:action="@{/students/addNew}" method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Новый студент</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="addId" class="col-form-label">Id:</label>
+                        <input type="text" class="form-control" id="addId" name="Id">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addName" class="col-form-label">Имя:</label>
+                        <input type="text" class="form-control" id="addName" name="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addSurname" class="col-form-label">Фамилия:</label>
+                        <input type="text" class="form-control" id="addSurname" name="surname">
+                    </div>
+
+                    <div class="fore">
+                        <label for="addUpdatedBy" class="col-form-label">Кем обновлен:</label>
+                        <input type="text" class="form-control" id="addUpdatedBy" name="updatedBy">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addUpdatedOn" class="col-form-label">Дата:</label>
+                        <input type="text" class="form-control" id="addUpdatedOn" name="updatedOn">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <form method="put" th:action="@{/students/update}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Редактировать студента</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="IdEdit" class="col-form-label">Id:</label>
+                        <input type="text" class="form-control" id="IdEdit" name="Id">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nameEdit" class="col-form-label">Имя:</label>
+                        <input type="text" class="form-control" id="nameEdit" name="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="surnameEdit" class="col-form-label">Фамилия:</label>
+                        <input type="text" class="form-control" id="surnameEdit" name="surname">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="updatedByEdit" class="col-form-label">Кем обновлено:</label>
+                        <input type="text" class="form-control" id="updatedByEdit" name="updatedBy">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="updatedOnEdit" class="col-form-label">Дата:</label>
+                        <input type="text" class="form-control" id="updatedOnEdit" name="updatedOn">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Подтвердите удаление</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены, что хотите удалить эту запись?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="btn btn-primary" id="delRef">Да, удалить</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="mt-auto flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <p class="mt-auto text-center">&copy; 2022 ArtJDev</p>
+    <!--    <footer class="mt-auto text-bl-50">-->
+    <!--        <p>©ArtJDev</p>-->
+</footer>
+</body>
+</html>

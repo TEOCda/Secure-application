@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
+    <title>Главная страница</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="http://localhost:8080/home">Home<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <div style="color:#FFFFFF" class="nav-item active">
+            <h5>Главная страница</h5>
+        </div>
+    </div>
+</nav>
+<br>
+<br>
+<br>
+
+<div class="px-4 py-5 my-5 text-center">
+    <main class="px-3">
+        <h1 class="display-5 fw-bold">Сервис мониторинга студентов</h1>
+        <p class="lead">Сервис предоставляет возможность просматривать списки студентов, добавлять, редактировать,
+            удалять данные о студентах.</p>
+        <p class="lead">
+            <a class="btn btn-primary" href="http://localhost:8080/students/getAll" role="button">Посмотреть список</a>
+        </p>
+    </main>
+</div>
+<footer class="mt-auto flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <p class="mt-auto text-center">&copy; 2022 ArtJDev</p>
+    <!--    <footer class="mt-auto text-bl-50">-->
+    <!--        <p>©ArtJDev</p>-->
+</footer>
+
+</body>
+</html>
